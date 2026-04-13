@@ -32,6 +32,120 @@ to forecast yield before harvest.
 - **Period:** 2000 – 2021 (22 years)
 - **Target:** `Yield_(tonnes/ha)`
 ---
-## 🛠️ Pipeline
+# 🌿 Vegetation Productivity Modelling Pipeline
 
-Raw Data │ ├── EDA (distributions, trends, correlation heatmap) │ ├── Feature Engineering (7 new derived features) │ ├── VHI — Vegetation Health Index │ ├── Canopy Efficiency (GPP / LAI) │ ├── Rainfall–Temperature ratio │ ├── NDVI × FAPAR │ ├── SMI × Rainfall │ ├── EVI/NDVI ratio │ └── Normalised Year │ ├── Temporal Train/Test Split (2020–2021 as held-out test) │ ├── 5-Fold Cross-Validation » 13 Models │ Linear · Ridge · Lasso · ElasticNet · KNN · Decision Tree │ Bagging · Random Forest · Extra Trees · Gradient Boosting │ AdaBoost · XGBoost · SVR (+LightGBM / CatBoost if installed) │ ├── Hyperparameter Tuning (RandomizedSearchCV — 60 iterations) │ ├── Feature Importance + SHAP Explainability │ └── Final Leaderboard (R², RMSE, MAE, MAPE%)
+A machine learning pipeline for predicting vegetation productivity using multi-source remote sensing and climate variables.
+
+---
+
+## 📁 Project Structure
+
+---
+
+## 🔄 Pipeline Overview
+
+### 1. 📊 Exploratory Data Analysis
+- Distribution plots and trend analysis across all variables
+- Correlation heatmap to identify multicollinearity and key predictors
+
+---
+
+### 2. 🧪 Feature Engineering
+Seven derived features were constructed to enrich the predictor set:
+
+| Feature | Description |
+|--------|-------------|
+| `VHI` | Vegetation Health Index |
+| `Canopy_Efficiency` | GPP / LAI |
+| `Rain_Temp_Ratio` | Rainfall ÷ Temperature |
+| `NDVI_FAPAR` | NDVI × FAPAR interaction |
+| `SMI_Rainfall` | SMI × Rainfall interaction |
+| `EVI_NDVI_Ratio` | EVI / NDVI |
+| `Year_Norm` | Normalised year (temporal scaling) |
+
+---
+
+### 3. 🗂️ Temporal Train/Test Split
+- **Train:** All years except 2020–2021
+- **Test (held-out):** 2020–2021 — simulates real-world temporal generalization
+
+---
+
+### 4. 🤖 Model Training — 5-Fold Cross-Validation
+
+Thirteen models evaluated using 5-fold CV:
+
+| Category | Models |
+|----------|--------|
+| Linear | Linear Regression, Ridge, Lasso, ElasticNet |
+| Instance-Based | K-Nearest Neighbours (KNN) |
+| Tree-Based | Decision Tree, Bagging, Random Forest, Extra Trees |
+| Boosting | Gradient Boosting, AdaBoost, XGBoost |
+| Kernel-Based | Support Vector Regression (SVR) |
+| Optional* | LightGBM, CatBoost |
+
+> *LightGBM and CatBoost are included if the packages are installed in your environment.
+
+---
+
+### 5. ⚙️ Hyperparameter Tuning
+- Method: `RandomizedSearchCV`
+- Iterations: **60**
+- Applied to shortlisted top-performing models from cross-validation
+
+---
+
+### 6. 🔍 Explainability
+- **Feature Importance** — model-native importance scores
+- **SHAP Analysis** — global and local interpretability using SHapley Additive exPlanations
+
+---
+
+### 7. 🏆 Final Leaderboard
+
+Models are ranked on the held-out test set (2020–2021) using four metrics:
+
+| Metric | Description |
+|--------|-------------|
+| **R²** | Proportion of variance explained |
+| **RMSE** | Root Mean Square Error |
+| **MAE** | Mean Absolute Error |
+| **MAPE%** | Mean Absolute Percentage Error |
+
+---
+
+## 🚀 Getting Started
+
+```bash
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+pip install -r requirements.txt
+jupyter notebook notebooks/pipeline.ipynb
+```
+
+---
+
+## 📦 Requirements
+numpy
+pandas
+scikit-learn
+xgboost
+shap
+matplotlib
+seaborn
+lightgbm # optional
+catboost # optional
+
+---
+
+## 📄 License
+This project is licensed under the MIT License.
+
+## 🧰 Tech Stack
+
+![Python](https://img.shields.io/badge/Python-3.10-blue?style=for-the-badge&logo=python)
+![Scikit-learn](https://img.shields.io/badge/scikit--learn-1.3-orange?style=for-the-badge&logo=scikit-learn)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.0-red?style=for-the-badge)
+![Pandas](https://img.shields.io/badge/Pandas-2.0-purple?style=for-the-badge&logo=pandas)
+![SHAP](https://img.shields.io/badge/SHAP-Explainability-purple?style=for-the-badge)
+
