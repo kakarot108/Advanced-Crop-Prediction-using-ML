@@ -33,3 +33,5 @@ to forecast yield before harvest.
 - **Target:** `Yield_(tonnes/ha)`
 ---
 ## 🛠️ Pipeline
+
+Raw Data │ ├── EDA (distributions, trends, correlation heatmap) │ ├── Feature Engineering (7 new derived features) │ ├── VHI — Vegetation Health Index │ ├── Canopy Efficiency (GPP / LAI) │ ├── Rainfall–Temperature ratio │ ├── NDVI × FAPAR │ ├── SMI × Rainfall │ ├── EVI/NDVI ratio │ └── Normalised Year │ ├── Temporal Train/Test Split (2020–2021 as held-out test) │ ├── 5-Fold Cross-Validation » 13 Models │ Linear · Ridge · Lasso · ElasticNet · KNN · Decision Tree │ Bagging · Random Forest · Extra Trees · Gradient Boosting │ AdaBoost · XGBoost · SVR (+LightGBM / CatBoost if installed) │ ├── Hyperparameter Tuning (RandomizedSearchCV — 60 iterations) │ ├── Feature Importance + SHAP Explainability │ └── Final Leaderboard (R², RMSE, MAE, MAPE%)
